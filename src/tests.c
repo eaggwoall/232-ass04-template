@@ -147,8 +147,9 @@ void test_createNode_next_null(void)
 
 void test_destroyNode_sets_null(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* node = createNode(NULL);
+    destroyNode(&node);
+    TEST_ASSERT_TRUE_MESSAGE(node == NULL, "Pointer not NULL after destroyNode.");
 }
 
 
@@ -163,8 +164,11 @@ void test_destroyNode_sets_null(void)
 
 void test_addFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    Node* newNode = createNode(42);
+    addFirst(&headPtr, newNode);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == newNode, "headPtr not new node.");
+    destroyList(&headPtr);
 }
 
 

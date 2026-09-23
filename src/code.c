@@ -265,8 +265,17 @@ void destroyNode(Node **nodePtrPtr)
 
 int addFirst(Node **headPtrPtr, Node *newNodePtr)
 {
-    // TODO
-    return -1;
+    if (headPtrPtr == NULL) {
+        fprintf(stderr, "Error: headPtrPtr is NULL.\n");
+        return -1;
+    }
+    if (newNodePtr == NULL) {
+        fprintf(stderr, "Error: newNodePtr is NULL.\n");
+        return -1;
+    }
+    newNodePtr->nextPtr = *headPtrPtr;
+    *headPtrPtr = newNodePtr;
+    return 0;
 }
 
 
