@@ -431,8 +431,23 @@ void test_detachValue_not_found(void)
 
 void test_deleteFirst_removes_node(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* firstNode = createNode(41);
+    Node* secondNode = createNode(42);
+    if (firstNode == NULL || secondNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+    firstNode->nextPtr = secondNode;
+    Node* headPtr = firstNode;
+
+    int result = deleteFirst(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(result == 0,
+        "deleteFirst did not return 0 for a non-empty list.");
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == secondNode,
+        "deleteFirst did not update headPtr to the second node.");
+    destroyList(&headPtr);
 }
 
 
@@ -445,8 +460,10 @@ void test_deleteFirst_removes_node(void)
 
 void test_deleteFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    int result = deleteFirst(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(result == -1,
+        "deleteFirst must return -1 for an empty list.");
 }
 
 
@@ -463,8 +480,32 @@ void test_deleteFirst_empty_list(void)
 
 void test_deleteValue_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* firstNode = createNode(10);
+    Node* secondNode = createNode(20);
+    Node* thirdNode = createNode(30);
+    if (firstNode == NULL || secondNode == NULL || thirdNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        destroyNode(&thirdNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+    firstNode->nextPtr = secondNode;
+    secondNode->nextPtr = thirdNode;
+    Node* headPtr = firstNode;
+
+    int result = deleteValue(&headPtr, 20);
+    TEST_ASSERT_TRUE_MESSAGE(result == 0,
+        "deleteValue did not return 0 for an existing value.");
+    TEST_ASSERT_TRUE_MESSAGE(listLength(headPtr) == 2,
+        "List length incorrect after deleting a value.");
+    Node* currentNode = headPtr;
+    while (currentNode != NULL) {
+        TEST_ASSERT_TRUE_MESSAGE(currentNode->value != 20,
+            "Deleted value is still in the list.");
+        currentNode = currentNode->nextPtr;
+    }
+    destroyList(&headPtr);
 }
 
 
@@ -480,8 +521,27 @@ void test_deleteValue_found(void)
 
 void test_deleteValue_not_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* firstNode = createNode(10);
+    Node* secondNode = createNode(20);
+    if (firstNode == NULL || secondNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+    firstNode->nextPtr = secondNode;
+    Node* headPtr = firstNode;
+
+    int result = deleteValue(&headPtr, 99);
+    TEST_ASSERT_TRUE_MESSAGE(result == -1,
+        "deleteValue must return -1 when the value is not found.");
+    TEST_ASSERT_TRUE_MESSAGE(listLength(headPtr) == 2,
+        "List length changed when the value was not found.");
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == firstNode &&
+        headPtr->nextPtr == secondNode && secondNode->nextPtr == NULL &&
+        firstNode->value == 10 && secondNode->value == 20,
+        "List changed when the value was not found.");
+    destroyList(&headPtr);
 }
 
 

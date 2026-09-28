@@ -484,8 +484,12 @@ int deleteLast(Node **headPtrPtr)
 
 int deleteValue(Node **headPtrPtr, int value)
 {
-    // TODO
-    return -1;
+    Node* matchingNode = detachValue(headPtrPtr, value);
+    if (matchingNode == NULL) {
+        return -1;
+    }
+    destroyNode(&matchingNode);
+    return 0;
 }
 
 
@@ -541,6 +545,10 @@ int printList(Node *headPtr)
 
 int listLength(Node *headPtr)
 {
-    // TODO
-    return 0;
+    int length = 0;
+    while (headPtr != NULL) {
+        length++;
+        headPtr = headPtr->nextPtr;
+    }
+    return length;
 }
