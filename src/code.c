@@ -531,8 +531,15 @@ void destroyList(Node **headPtrPtr)
 
 int printList(Node *headPtr)
 {
-    // TODO
-    return -1;
+    if (headPtr == NULL) {
+        printf("List is empty.\n");
+        return -1;
+    }
+    while (headPtr != NULL) {
+        printf("%d\n", headPtr->value);
+        headPtr = headPtr->nextPtr;
+    }
+    return 0;
 }
 
 

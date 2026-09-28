@@ -601,8 +601,24 @@ void test_listLength_empty(void)
 
 void test_listLength_three(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* firstNode = createNode(10);
+    Node* secondNode = createNode(20);
+    Node* thirdNode = createNode(30);
+    if (firstNode == NULL || secondNode == NULL || thirdNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        destroyNode(&thirdNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+    firstNode->nextPtr = secondNode;
+    secondNode->nextPtr = thirdNode;
+    Node* headPtr = firstNode;
+
+    int length = listLength(headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(length == 3,
+        "listLength did not return 3 for a three-node list.");
+    destroyList(&headPtr);
 }
 
 
@@ -615,6 +631,7 @@ void test_listLength_three(void)
 
 void test_printList_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    int result = printList(NULL);
+    TEST_ASSERT_TRUE_MESSAGE(result == -1,
+        "printList must return -1 for an empty list.");
 }
