@@ -229,8 +229,11 @@ void test_addFirst_null_headptr(void)
 
 void test_addLast_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    Node* node = createNode(42);
+    addLast(&headPtr, node);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == node, "headPtr not new node.");
+    destroyList(&headPtr);
 }
 
 
@@ -246,8 +249,15 @@ void test_addLast_empty_list(void)
 
 void test_addLast_non_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    Node* firstNode = createNode(41);
+    Node* secondNode = createNode(42);
+    addLast(&headPtr, firstNode);
+    addLast(&headPtr, secondNode);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == firstNode, "headPtr not first added node.");
+    TEST_ASSERT_TRUE_MESSAGE(headPtr->nextPtr == secondNode, "next node not second added node.");
+    TEST_ASSERT_TRUE_MESSAGE(secondNode->nextPtr == NULL, "last node not null.");
+    destroyList(&headPtr);
 }
 
 
