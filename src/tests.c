@@ -271,7 +271,7 @@ void test_addLast_non_empty(void)
 void test_addLast_null_guard(void)
 {
     // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test");
 }
 
 
