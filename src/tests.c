@@ -309,8 +309,16 @@ void test_detachFirst_returns_node(void)
 
 void test_detachFirst_updates_head(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    initNode(&a, 41);
+    initNode(&b, 42);
+    a.nextPtr = &b;
+    Node* headPtr = &a;
+
+    detachFirst(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == &b,
+        "detachFirst did not update headPtr to the second node.");
 }
 
 
@@ -323,8 +331,10 @@ void test_detachFirst_updates_head(void)
 
 void test_detachFirst_empty_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    Node* detachedNode = detachFirst(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(detachedNode == NULL,
+        "detachFirst must return NULL for an empty list.");
 }
 
 
