@@ -270,8 +270,10 @@ void test_addLast_non_empty(void)
 
 void test_addLast_null_guard(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test");
+    Node node;
+    initNode(&node, 41);
+    int result = addLast(NULL, &node);
+    TEST_ASSERT_TRUE_MESSAGE(result == -1, "addLast did not return -1 for current headPtr value.");
 }
 
 
@@ -285,8 +287,15 @@ void test_addLast_null_guard(void)
 
 void test_detachFirst_returns_node(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    initNode(&a, 41);
+    initNode(&b, 42);
+    a.nextPtr = &b;
+    Node* headPtr = &a;
+
+    Node* detachedNode = detachFirst(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(detachedNode == &a, "detachFirst did not return the first node.");
 }
 
 
