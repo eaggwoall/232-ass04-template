@@ -184,8 +184,21 @@ void test_addFirst_empty_list(void)
 
 void test_addFirst_non_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* headPtr = NULL;
+    Node* firstNode = createNode(41);
+    Node* secondNode = createNode(42);
+    if (firstNode == NULL || secondNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+
+    addFirst(&headPtr, firstNode);
+    addFirst(&headPtr, secondNode);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == secondNode, "headPtr not second node added.");
+    TEST_ASSERT_TRUE_MESSAGE(headPtr->nextPtr == firstNode, "First node not reachable via nextPtr.");
+    destroyList(&headPtr);
 }
 
 
@@ -198,8 +211,10 @@ void test_addFirst_non_empty(void)
 
 void test_addFirst_null_headptr(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node node;
+    initNode(&node, 42);
+    int result = addFirst(NULL, &node);
+    TEST_ASSERT_TRUE_MESSAGE(result == -1, "addFirst must return -1 for NULL headPtrPtr.");
 }
 
 

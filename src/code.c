@@ -325,8 +325,13 @@ int addLast(Node **headPtrPtr, Node *newNodePtr)
 
 Node* detachFirst(Node **headPtrPtr)
 {
-    // TODO
-    return NULL;
+    if (headPtrPtr == NULL || *headPtrPtr == NULL) {
+        return NULL;
+    }
+    Node* firstNode = _findFirst(*headPtrPtr);
+    *headPtrPtr = firstNode->nextPtr;
+    _nullify(&firstNode->nextPtr);
+    return firstNode;
 }
 
 
@@ -397,8 +402,12 @@ Node* detachValue(Node **headPtrPtr, int value)
 
 int deleteFirst(Node **headPtrPtr)
 {
-    // TODO
-    return -1;
+    Node* firstNode = detachFirst(headPtrPtr);
+    if (firstNode == NULL) {
+        return -1;
+    }
+    destroyNode(&firstNode);
+    return 0;
 }
 
 
@@ -466,7 +475,12 @@ int deleteValue(Node **headPtrPtr, int value)
 
 void destroyList(Node **headPtrPtr)
 {
-    // TODO
+    if (headPtrPtr == NULL) {
+        return;
+    }
+    while (*headPtrPtr != NULL) {
+        deleteFirst(headPtrPtr);
+    }
 }
 
 
