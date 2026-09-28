@@ -555,8 +555,23 @@ void test_deleteValue_not_found(void)
 
 void test_destroyList_empties_list(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node* firstNode = createNode(10);
+    Node* secondNode = createNode(20);
+    Node* thirdNode = createNode(30);
+    if (firstNode == NULL || secondNode == NULL || thirdNode == NULL) {
+        destroyNode(&firstNode);
+        destroyNode(&secondNode);
+        destroyNode(&thirdNode);
+        TEST_ASSERT_TRUE_MESSAGE(0, "Could not allocate test nodes.");
+        return;
+    }
+    firstNode->nextPtr = secondNode;
+    secondNode->nextPtr = thirdNode;
+    Node* headPtr = firstNode;
+
+    destroyList(&headPtr);
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == NULL,
+        "destroyList did not set headPtr to NULL.");
 }
 
 
@@ -569,8 +584,9 @@ void test_destroyList_empties_list(void)
 
 void test_listLength_empty(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    int length = listLength(NULL);
+    TEST_ASSERT_TRUE_MESSAGE(length == 0,
+        "listLength must return 0 for an empty list.");
 }
 
 
