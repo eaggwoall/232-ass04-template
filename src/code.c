@@ -393,8 +393,26 @@ Node* detachLast(Node **headPtrPtr)
 
 Node* detachValue(Node **headPtrPtr, int value)
 {
-    // TODO
-    return NULL;
+    if (headPtrPtr == NULL) {
+        fprintf(stderr, "Error: headPtrPtr is NULL.\n");
+        return NULL;
+    }
+    Node* matchingNode = _findValue(*headPtrPtr, value);
+    if (matchingNode == NULL) {
+        fprintf(stderr, "Warning: value not found.\n");
+        return NULL;
+    }
+    if (matchingNode == *headPtrPtr) {
+        return detachFirst(headPtrPtr);
+    }
+
+    Node* previousNode = *headPtrPtr;
+    while (previousNode->nextPtr != matchingNode) {
+        previousNode = previousNode->nextPtr;
+    }
+    previousNode->nextPtr = matchingNode->nextPtr;
+    _nullify(&matchingNode->nextPtr);
+    return matchingNode;
 }
 
 

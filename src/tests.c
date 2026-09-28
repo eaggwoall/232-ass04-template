@@ -350,8 +350,23 @@ void test_detachFirst_empty_list(void)
 
 void test_detachValue_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    Node c;
+    initNode(&a, 1);
+    initNode(&b, 2);
+    initNode(&c, 3);
+    a.nextPtr = &b;
+    b.nextPtr = &c;
+    Node* headPtr = &a;
+
+    Node* detachedNode = detachValue(&headPtr, 2);
+    TEST_ASSERT_TRUE_MESSAGE(detachedNode == &b,
+        "detachValue did not return the matching node.");
+    TEST_ASSERT_TRUE_MESSAGE(a.nextPtr == &c,
+        "First node does not link to the third node.");
+    TEST_ASSERT_TRUE_MESSAGE(b.nextPtr == NULL,
+        "Detached node's nextPtr is not NULL.");
 }
 
 
@@ -366,8 +381,18 @@ void test_detachValue_found(void)
 
 void test_detachValue_head(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    initNode(&a, 1);
+    initNode(&b, 2);
+    a.nextPtr = &b;
+    Node* headPtr = &a;
+
+    Node* detachedNode = detachValue(&headPtr, 1);
+    TEST_ASSERT_TRUE_MESSAGE(detachedNode == &a,
+        "detachValue did not return the matching head node.");
+    TEST_ASSERT_TRUE_MESSAGE(headPtr == &b,
+        "detachValue did not update headPtr to the second node.");
 }
 
 
@@ -381,8 +406,16 @@ void test_detachValue_head(void)
 
 void test_detachValue_not_found(void)
 {
-    // TODO
-    TEST_ASSERT_TRUE_MESSAGE(0, "TODO: implement this test.");
+    Node a;
+    Node b;
+    initNode(&a, 1);
+    initNode(&b, 2);
+    a.nextPtr = &b;
+    Node* headPtr = &a;
+
+    Node* detachedNode = detachValue(&headPtr, 99);
+    TEST_ASSERT_TRUE_MESSAGE(detachedNode == NULL,
+        "detachValue must return NULL when the value is not found.");
 }
 
 
